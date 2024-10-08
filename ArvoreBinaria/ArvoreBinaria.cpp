@@ -2,13 +2,14 @@
 using namespace std;
 
 // definicao de tipo
-struct NO {
+struct NO
+{
 	int valor;
-	NO* esq;
-	NO* dir;
+	NO *esq;
+	NO *dir;
 };
 
-NO* raiz = NULL;
+NO *raiz = NULL;
 
 // headers
 // estrutura principal
@@ -18,15 +19,12 @@ void inserir();
 void exibir();
 void exibirQuantidade();
 
-
-
 // funcoes auxiliares Arvore
-NO* insereArvore(NO* no, int valor);
-NO* criaNO(int valor);
-int elementosArvore(NO* no);
-void exibirElementosArvore(NO* no);
+NO *insereArvore(NO *no, int valor);
+NO *criaNO(int valor);
+int elementosArvore(NO *no);
+void exibirElementosArvore(NO *no);
 //--------------------------
-
 
 int main()
 {
@@ -36,15 +34,16 @@ int main()
 void menu()
 {
 	int op = 0;
-	while (op != 5) {
+	while (op != 5)
+	{
 		system("cls"); // somente no windows
 		cout << "Menu Arvore";
-		cout << endl << endl;
+		cout << endl
+			 << endl;
 		cout << "1 - Inicializar Arvore \n";
 		cout << "2 - Exibir quantidade de elementos \n";
 		cout << "3 - Inserir elemento \n";
 		cout << "4 - Exibir elementos \n";
-
 		cout << "5 - Sair \n";
 
 		cout << "Opcao: ";
@@ -52,13 +51,17 @@ void menu()
 
 		switch (op)
 		{
-		case 1: inicializar();
+		case 1:
+			inicializar();
 			break;
-		case 2:exibirQuantidade();
+		case 2:
+			exibirQuantidade();
 			break;
-		case 3: inserir();
+		case 3:
+			inserir();
 			break;
-		case 4: exibir();
+		case 4:
+			exibir();
 			break;
 		default:
 			break;
@@ -71,42 +74,40 @@ void menu()
 void inicializar()
 {
 
-	// provisório porque não libera a memoria usada pela arvore
-	NO* raiz = NULL;
-	
+	// provisorio porque nao libera a memoria usada pela arvore
+	NO *raiz = NULL;
+
 	cout << "Arvore inicializada \n";
-
 }
-
 
 void inserir()
 {
 	int valor;
 	cout << "Digite o elemento: ";
 	cin >> valor;
-	if (raiz == NULL) {
+	if (raiz == NULL)
+	{
 		raiz = criaNO(valor);
 	}
-	else {
-		 insereArvore(raiz, valor);
+	else
+	{
+		insereArvore(raiz, valor);
 	}
-
-
 }
 
-void exibirQuantidade() {
+void exibirQuantidade()
+{
 	cout << "Quantidade de elementos: " << elementosArvore(raiz) << endl;
-	
 }
 
-void exibir() {
+void exibir()
+{
 	exibirElementosArvore(raiz);
 }
 
-
-NO* criaNO(int valor)
+NO *criaNO(int valor)
 {
-	NO* novo = (NO*)malloc(sizeof(NO));
+	NO *novo = (NO *)malloc(sizeof(NO));
 	if (novo == NULL)
 	{
 		return NULL;
@@ -119,38 +120,56 @@ NO* criaNO(int valor)
 	return novo;
 }
 
-NO* insereArvore(NO* no, int valor)
+NO *insereArvore(NO *no, int valor)
 {
-	if (no->valor > valor && no->esq == NULL) {
+	if (no->valor > valor && no->esq == NULL)
+	{
 		no->esq = criaNO(valor);
 		return no->esq;
 	}
-	else if (no->valor < valor && no->dir == NULL) {
+	else if (no->valor < valor && no->dir == NULL)
+	{
 		no->dir = criaNO(valor);
 		return no->dir;
 	}
-	else if (no->valor > valor) {
+	else if (no->valor > valor)
+	{
 		return insereArvore(no->esq, valor);
 	}
-	else if (no->valor < valor) {
+	else if (no->valor < valor)
+	{
 		return insereArvore(no->dir, valor);
 	}
-	else {
+	else
+	{
 		return NULL;
 	}
-	
 }
 
-int elementosArvore(NO* no)
+int elementosArvore(NO *no)
 {
-	if (no == NULL) {
+	if (no == NULL)
+	{
 		return 0;
 	}
 
 	return 1 + elementosArvore(no->esq) + elementosArvore(no->dir);
 }
 
-void exibirElementosArvore(NO* no)
+void exibirElementosArvore(NO *no)
 {
-	
+	if (elementosArvore(raiz) == 0)
+	{
+		cout << "Arvore vazia." << endl;
+		return;
+	}else if (no != NULL)
+	{
+		exibirElementosArvore(no->esq);
+		cout << no->valor << " \n";
+		exibirElementosArvore(no->dir);
+	}
+	else
+	{
+		return;
+	}
 }
